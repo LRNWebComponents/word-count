@@ -1,16 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../materializecss-styles/materializecss-styles.html">
-<link rel="import" href="../hax-body-behaviors/hax-body-behaviors.html">
-<link rel="import" href="../schema-behaviors/schema-behaviors.html">
 <!--
 `word-count`
-A LRN element
+Count the words on whatever this wraps
 
 @demo demo/index.html
-
-@microcopy - the mental model for this element
- -
- -
 
 -->
 
@@ -19,73 +12,95 @@ A LRN element
     <style>
       :host {
         display: block;
+        --word-count-color: #888888;
+        --word-count-color-hover: #000000;
+      }
+      :host::after{
+        content: attr(words-text);
+        font-size: 10px;
+        position: relative;
+        transition: .3s font-size,color ease;
+        display: flex;
+        line-height: 16px;
+        flex-direction: row-reverse;
+        margin: 12px;
+        color: var(--word-count-color);
+        @apply(--word-count-text);
+      }
+      :host:hover::after {
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--word-count-color-hover);
+        @apply(--word-count-text-hover);
+      }
+      :host:focus::after {
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--word-count-color-hover);
+        @apply(--word-count-text-hover);
+      }
+      :host:active::after {
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--word-count-color-hover);
+        @apply(--word-count-text-hover);
       }
     </style>
-    <h2>[[title]]</h2>
+    <slot></slot>
   </template>
 
   <script>
     Polymer({
 
       is: 'word-count',
-      behaviors: [HAXBehaviors.PropertiesBehaviors, MaterializeCSSBehaviors.ColorBehaviors, SchemaBehaviors.Schema],
+      hostAttributes: {
+        'tabindex': '0',
+      },
       properties: {
         /**
-         * Title
+         * Words
          */
-        title: {
+        words: {
+          type: Number,
+        },
+        /**
+         * Prefix text.
+         */
+        wordsPrefix: {
           type: String,
+          value: 'Words:',
+        },
+        /**
+         * Text to output
+         */
+        wordsText: {
+          type: String,
+          computed: '_computeWordsText(words, wordsPrefix)',
+          reflectToAttribute: true,
         },
       },
       /**
-       * Attached to the DOM, now fire.
+       * Ready life cycle
        */
-      attached: function() {
-        // Establish hax property binding
-        let props = {
-          'canScale': true,
-          'canPosition': true,
-          'canEditSource': false,
-          'gizmo': {
-            'title': 'Sample gizmo',
-            'description': 'The user will be able to see this for selection in a UI.',
-            'icon': 'av:play-circle-filled',
-            'color': 'grey',
-            'groups': ['Video', 'Media'],
-            'handles': [
-              {
-                'type': 'video',
-                'url': 'source'
-              }
-            ],
-            'meta': {
-              'author': 'Your organization on github'
-            }
-          },
-          'settings': {
-            'quick': [
-              {
-                'property': 'title',
-                'title': 'Title',
-                'description': 'The title of the element',
-                'inputMethod': 'textfield',
-                'icon': 'editor:title',
-              },
-            ],
-            'configure': [
-              {
-                'property': 'title',
-                'title': 'Title',
-                'description': 'The title of the element',
-                'inputMethod': 'textfield',
-                'icon': 'editor:title',
-              },
-            ],
-            'advanced': [
-            ]
+      ready: function() {
+        // mutation observer that ensures state of hax applied correctly
+        this._observer = Polymer.dom(this).observeNodes(function(info) {
+          if (info.addedNodes.length > 0 || info.removedNodes.length > 0) {
+            this._updateWords();
           }
-        };
-        this.setHaxProperties(props);
+        });
+      },
+      /**
+       * Update words based on data in the slot.
+       */
+      _updateWords: function() {
+        this.words = parseInt(Polymer.dom(this).textContent.split(/\s+/g).length);
+      },
+      /**
+       * Computer the text to output for words
+       */
+      _computeWordsText: function(words, prefix) {
+        return prefix + ' ' + words;
       },
     });
   </script>
