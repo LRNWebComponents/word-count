@@ -1,0 +1,25 @@
+{
+  "name": "word-count",
+  "description": "A LRN element",
+  "main": "word-count.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.10.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/LRNWebComponents/word-count",
+  "_release": "bc94c56df5",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "bc94c56df50343ba144bef3605f155292ad0fcdb"
+  },
+  "_source": "https://github.com/LRNWebComponents/word-count.git",
+  "_target": "master",
+  "_originalSource": "LRNWebComponents/word-count",
+  "_direct": true
+}
