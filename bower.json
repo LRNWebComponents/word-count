@@ -3,10 +3,7 @@
   "description": "A LRN element",
   "main": "word-count.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.10.1",
-    "hax-body-behaviors": "LRNWebComponents/hax-body-behaviors#^1.2.0",
-    "materializecss-styles": "LRNWebComponents/materializecss-styles#^1.0.0",
-    "schema-behaviors": "LRNWebComponents/schema-behaviors"
+    "polymer": "Polymer/polymer#^1.10.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

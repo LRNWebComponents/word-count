@@ -9,14 +9,14 @@
 ```
 -->
 ```html
-<word-count></word-count>
+<word-count>Things and stuff in here.</word-count>
 ```
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/LRNWebComponents/word-count)
 
 # \<word-count\>
 
-A LRN element
+[Video of building this element](https://www.youtube.com/watch?v=Kn-C1K2pqFM)
 
 ## Install the Polymer-CLI
 
